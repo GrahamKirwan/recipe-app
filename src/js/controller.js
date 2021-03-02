@@ -8,8 +8,6 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 
-const recipeContainer = document.querySelector('.recipe');
-
 const timeout = function (s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {
@@ -53,5 +51,7 @@ const controlRecipes = async function () {
 
 controlRecipes();
 
-window.addEventListener('hashchange', controlRecipes);
-window.addEventListener('load', controlRecipes);
+['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipes));
+
+// window.addEventListener('hashchange', controlRecipes);
+// window.addEventListener('load', controlRecipes);
