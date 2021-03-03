@@ -26,6 +26,11 @@ class RecipeView {
       this.#parentElement.insertAdjacentHTML('afterbegin', spinnerHTML);
       };
 
+      // Publisher-subscriber pattern event handler
+      addHandlerRender(handler) {
+        ['hashchange', 'load'].forEach(event => window.addEventListener(event, handler));
+      }
+
     #generateMarkup() {
         return `<figure class="recipe__fig">
                         <img src="${this.#data.image}" alt="${this.#data.title}" class="recipe__img" />
