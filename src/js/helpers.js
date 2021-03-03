@@ -15,7 +15,7 @@ export const getJSON = async function(url) {
         // const res = await fetch(url);
         const data = await res.json();
     
-        if(!res.ok) throw new Error(`${data.message} (${res.status})`);    
+        if(!res.ok) throw new Error(`${data.message} (${res.status})`);     
         return data;
     } catch(err) {
         //This propogates the error down from this async function to where its called by re-throwing the error
