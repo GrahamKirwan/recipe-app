@@ -12,11 +12,11 @@ class RecipeView {
         this.#parentElement.insertAdjacentHTML('afterbegin', markup);
     }
 
-    #clear () {
+    #clear() {
         this.#parentElement.innerHTML = '';
     }
 
-    renderSpinner () {
+    renderSpinner() {
         const spinnerHTML = `<div class="spinner">
         <svg>
           <use href="${icons}#icon-loader"></use>
