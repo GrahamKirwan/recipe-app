@@ -4,6 +4,8 @@ import icons from 'url:../../img/icons.svg';
 class RecipeView {
     #parentElement = document.querySelector('.recipe');
     #data;
+    #errorMessage = 'Could not find that recipe';
+    #successMessage = 'Success';
 
     render(data) {
         this.#data = data;
@@ -25,6 +27,36 @@ class RecipeView {
       this.#parentElement.innerHTML = '';
       this.#parentElement.insertAdjacentHTML('afterbegin', spinnerHTML);
       };
+
+      renderError(message = this.#errorMessage) {
+        const markup = ` 
+              <div class="error">
+              <div>
+                <svg>
+                  <use href="${icons}#icon-alert-triangle"></use>
+                </svg>
+              </div>
+              <p>${message}</p>
+            </div>`
+
+            this.#parentElement.innerHTML = '';
+      this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+      }
+
+      renderMessage(message = this.#successMessage) {
+        const markup = ` 
+              <div class="message">
+              <div>
+                <svg>
+                  <use href="${icons}#icon-alert-smile"></use>
+                </svg>
+              </div>
+              <p>${message}</p>
+            </div>`
+
+            this.#parentElement.innerHTML = '';
+      this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+      }
 
       // Publisher-subscriber pattern event handler
       addHandlerRender(handler) {
