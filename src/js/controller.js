@@ -54,6 +54,7 @@ const controlSearchResults = async function () {
 
     // 4) Render initial pagination buttons
     paginationView.render(model.state.search);
+    
   
   } catch(err) {
       console.log(err);
@@ -69,11 +70,21 @@ const controlPagination = function(goToPage) {
   paginationView.render(model.state.search);
 }
 
+const controlServings = function(newServings) {
+  // Update the recipe servings (in state)
+  model.updateServings(newServings);
+
+  // Update the recipe view
+  recipeView.render(model.state.recipe);
+}
+
+
 
 
 // Publisher-subscriber pattern event handler
 const init = function() {
   recipeView.addHandlerRender(controlRecipes);
+  recipeView.addHandlerUpdateServings(controlServings);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
 }

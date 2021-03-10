@@ -1,33 +1,44 @@
-import View from './View.js';
+"use strict";
 
-// Imports icons svg so that they are readable when parcel builds project
-import icons from 'url:../../img/icons.svg';
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 
-class RecipeView extends View{
-    _parentElement = document.querySelector('.recipe');
-    _errorMessage = 'Could not find that recipe';
-    _successMessage = 'Success';
+var _View = _interopRequireDefault(require("./View.js"));
 
-    
+var _icons = _interopRequireDefault(require("url:../../img/icons.svg"));
 
-    // Publisher-subscriber pattern event handler
-    addHandlerRender(handler) {
-      ['hashchange', 'load'].forEach(event => window.addEventListener(event, handler));
-    }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-    addHandlerUpdateServings(handler) {
-      this._parentElement.addEventListener('click', function(e){
-        const btn = e.target.closest('.btn--update-servings');
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-        if (!btn) return;
-        const updateTo = +btn.dataset.updateTo;
+class RecipeView extends _View.default {
+  constructor(...args) {
+    super(...args);
 
-        if(updateTo > 0) handler(updateTo);
-      });
-    }
+    _defineProperty(this, "_parentElement", document.querySelector('.recipe'));
 
-    _generateMarkup() {
-        return `<figure class="recipe__fig">
+    _defineProperty(this, "_errorMessage", 'Could not find that recipe');
+
+    _defineProperty(this, "_successMessage", 'Success');
+  }
+
+  // Publisher-subscriber pattern event handler
+  addHandlerRender(handler) {
+    ['hashchange', 'load'].forEach(event => window.addEventListener(event, handler));
+  }
+
+  addHandlerUpdateServings(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const btn = e.target.closest('.btn--tiny');
+      if (!btn) return;
+      handler();
+    });
+  }
+
+  _generateMarkup() {
+    return `<figure class="recipe__fig">
                         <img src="${this._data.image}" alt="${this._data.title}" class="recipe__img" />
                         <h1 class="recipe__title">
                           <span>${this._data.title}</span>
@@ -37,27 +48,27 @@ class RecipeView extends View{
                       <div class="recipe__details">
                         <div class="recipe__info">
                           <svg class="recipe__info-icon">
-                            <use href="${icons}#icon-clock"></use>
+                            <use href="${_icons.default}#icon-clock"></use>
                           </svg>
                           <span class="recipe__info-data recipe__info-data--minutes">${this._data.cookingTime}</span>
                           <span class="recipe__info-text">minutes</span>
                         </div>
                         <div class="recipe__info">
                           <svg class="recipe__info-icon">
-                            <use href="${icons}#icon-users"></use>
+                            <use href="${_icons.default}#icon-users"></use>
                           </svg>
                           <span class="recipe__info-data recipe__info-data--people">${this._data.servings}</span>
                           <span class="recipe__info-text">servings</span>
 
                           <div class="recipe__info-buttons">
-                            <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings - 1}">
+                            <button class="btn--tiny btn--decrease-servings">
                               <svg>
-                                <use href="${icons}#icon-minus-circle"></use>
+                                <use href="${_icons.default}#icon-minus-circle"></use>
                               </svg>
                             </button>
-                            <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings + 1}">
+                            <button class="btn--tiny btn--increase-servings">
                               <svg>
-                                <use href="${icons}#icon-plus-circle"></use>
+                                <use href="${_icons.default}#icon-plus-circle"></use>
                               </svg>
                             </button>
                           </div>
@@ -68,7 +79,7 @@ class RecipeView extends View{
                         </div>
                         <button class="btn--round">
                           <svg class="">
-                            <use href="${icons}#icon-bookmark-fill"></use>
+                            <use href="${_icons.default}#icon-bookmark-fill"></use>
                           </svg>
                         </button>
                       </div>
@@ -96,19 +107,17 @@ class RecipeView extends View{
                         >
                           <span>Directions</span>
                           <svg class="search__icon">
-                            <use href="${icons}#icon-arrow-right"></use>
+                            <use href="${_icons.default}#icon-arrow-right"></use>
                           </svg>
                         </a>
-                      </div> `
+                      </div> `;
+  }
 
-
-    }
-
-    _genrateMarkupIngredient(ing) {
-            return `
+  _genrateMarkupIngredient(ing) {
+    return `
             <li class="recipe__ingredient">
             <svg class="recipe__icon">
-              <use href="${icons}#icon-check"></use>
+              <use href="${_icons.default}#icon-check"></use>
             </svg>
             <div class="recipe__quantity">${ing.quantity ? ing.quantity : " "}</div>
             <div class="recipe__description">
@@ -117,9 +126,10 @@ class RecipeView extends View{
             </div>
           </li>
             `;
-    }
-
+  }
 
 }
 
-export default new RecipeView();
+var _default = new RecipeView();
+
+exports.default = _default;
