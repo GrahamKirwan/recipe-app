@@ -23,6 +23,9 @@ const controlRecipes = async function () {
     if(!id) return;
     recipeView.renderSpinner();
 
+    // 0. Update results view to mark selected search result
+    resultsView.update(model.getSearchResultsPage());
+
     // 1. Loading recipe
     // Since loadRecipe is an async function form the model module, we have to await when we call it (this works because we are calling from within an async function)
     await model.loadRecipe(id);
@@ -75,7 +78,9 @@ const controlServings = function(newServings) {
   model.updateServings(newServings);
 
   // Update the recipe view
-  recipeView.render(model.state.recipe);
+  // recipeView.render(model.state.recipe);
+
+  recipeView.update(model.state.recipe);
 }
 
 
