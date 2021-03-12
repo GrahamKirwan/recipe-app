@@ -29,9 +29,10 @@ export default class View {
       // Loop over each node element in the current DOM array and compare it with the new
       newElements.forEach((newEl, i) => {
         const curEl = curElements[i];
+        // console.log(newEl.firstChild.nodeValue);
 
         // If the new element and current element are not the same & the new element has content (isnt just html without values) then change the node
-        if(!newEl.isEqualNode(curEl) && newEl.firstChild.nodeValue.trim() !== '') {
+        if(!newEl.isEqualNode(curEl) && newEl.firstChild?.nodeValue.trim() !== '') {
           curEl.textContent = newEl.textContent;
         }
 
