@@ -3,6 +3,7 @@ import recipeView from './views/recipeView.js'
 import searchView from './views/searchView.js'
 import resultsView from './views/resultsView.js'
 import paginationView from './views/paginationView.js'
+import bookmarksView from './views/bookmarksView.js'
 
 
 
@@ -25,6 +26,7 @@ const controlRecipes = async function () {
 
     // 0. Update results view to mark selected search result
     resultsView.update(model.getSearchResultsPage());
+    bookmarksView.update(model.state.bookmarks);
 
     // 1. Loading recipe
     // Since loadRecipe is an async function form the model module, we have to await when we call it (this works because we are calling from within an async function)
@@ -84,13 +86,17 @@ const controlServings = function(newServings) {
 }
 
 const controlAddBookmark = function() {
+  // Add or remove bookamrk
   if(model.state.recipe.bookmarked === false) {
     model.addBookmark(model.state.recipe);
   } else {
     model.deleteBookmark(model.state.recipe.id);
   }
-
+  // Update recipe view
   recipeView.update(model.state.recipe);
+
+  // Render bookmarks
+  bookmarksView.render(model.state.bookmarks)
 }
 
 
